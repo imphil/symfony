@@ -279,6 +279,101 @@ class ChoiceTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
         $this->assertTrue($form->isSynchronized());
     }
 
+    public function testSubmitSingleNonExpandedInteger()
+    {
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\ChoiceType', null, array(
+            'multiple' => false,
+            'expanded' => false,
+            'choices' => array(
+              'label a' => 0,
+              'label b' => 1,
+            ),
+            'choices_as_values' => true,
+        ));
+
+        $form->submit('0');
+
+        $this->assertSame(0, $form->getData());
+        $this->assertSame('0', $form->getViewData());
+        $this->assertTrue($form->isSynchronized());
+    }
+
+    public function testSubmitSingleNonExpandedBooleanValueFalse()
+    {
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\ChoiceType', null, array(
+            'multiple' => false,
+            'expanded' => false,
+            'choices' => array(
+              'label a' => false,
+              'label b' => true,
+            ),
+            'choices_as_values' => true,
+        ));
+
+        $form->submit('0');
+
+        $this->assertSame(false, $form->getData());
+        $this->assertSame('0', $form->getViewData());
+        $this->assertTrue($form->isSynchronized());
+    }
+
+    public function testSubmitSingleNonExpandedBooleanValueTrue()
+    {
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\ChoiceType', null, array(
+            'multiple' => false,
+            'expanded' => false,
+            'choices' => array(
+              'label a' => false,
+              'label b' => true,
+            ),
+            'choices_as_values' => true,
+        ));
+
+        $form->submit('1');
+
+        $this->assertSame(true, $form->getData());
+        $this->assertSame('1', $form->getViewData());
+        $this->assertTrue($form->isSynchronized());
+    }
+
+    public function testSubmitSingleExpandedBooleanValueFalse()
+    {
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\ChoiceType', null, array(
+            'multiple' => false,
+            'expanded' => true,
+            'choices' => array(
+              'label a' => false,
+              'label b' => true,
+            ),
+            'choices_as_values' => true,
+        ));
+
+        $form->submit('0');
+
+        $this->assertSame(false, $form->getData());
+        $this->assertSame('0', $form->getViewData());
+        $this->assertTrue($form->isSynchronized());
+    }
+
+    public function testSubmitSingleExpandedBooleanValueTrue()
+    {
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\ChoiceType', null, array(
+            'multiple' => false,
+            'expanded' => true,
+            'choices' => array(
+              'label a' => false,
+              'label b' => true,
+            ),
+            'choices_as_values' => true,
+        ));
+
+        $form->submit('1');
+
+        $this->assertSame(true, $form->getData());
+        $this->assertSame('1', $form->getViewData());
+        $this->assertTrue($form->isSynchronized());
+    }
+
     public function testSubmitSingleNonExpandedInvalidChoice()
     {
         $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\ChoiceType', null, array(
